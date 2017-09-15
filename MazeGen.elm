@@ -4,6 +4,8 @@ import Array exposing (Array)
 import Random
 import List
 import Bitwise
+import Direction exposing (Direction)
+import Debug
 
 type CellEnds = Dead | Open Int
 
@@ -17,37 +19,7 @@ mergeEnds ends1 ends2 =
         Open dir2 ->
           Open (Bitwise.or dir dir2)
 
-north : Int
-north = 1
-south : Int
-south = 2
-east : Int
-east = 4
-west : Int
-west = 8
 
-dx : Int -> Int
-dx dir =
-  case dir of
-    4 -> 1 -- east
-    8 -> -1 -- west
-    _ -> 0
-
-dy : Int -> Int
-dy dir =
-  case dir of
-    1 -> 1 -- north
-    2 -> -1 -- south
-    _ -> 0
-
-oppositeDir : Int -> Int
-oppositeDir dir =
-  case dir of
-    1 -> 2
-    2 -> 1
-    4 -> 8
-    8 -> 4
-    _ -> 0
 
 
 type alias Cell =
@@ -124,19 +96,19 @@ openStartPosition model =
     ,  visited = openModel.visited
     }
 
-rndDirection : Cell -> Random.Seed -> (Int, Random.Seed)
+rndDirection : Cell -> Random.Seed -> (Direction, Random.Seed)
 rndDirection cell seed =
   let
-    (rndDir, seed1) = Random.step (Random.int 0 3) seed
-    dir = 2 ^ rndDir
+    (rndDir, seed1) = Random.step (Direction.dirGenerator) seed
+    dirCode = Direction.toInt(rndDir)
   in
     case cell.ends of
-      Dead -> (dir, seed1)
+      Dead -> (rndDir, seed1)
       Open state ->
-        if Bitwise.and state dir > 0 then -- Weg ist bereits frei
+        if Bitwise.and state dirCode > 0 then -- Weg ist bereits frei
           rndDirection cell seed1 -- Nochmal versuchen
         else
-          (dir, seed1)
+          (rndDir, seed1)
 
 carveNextCell : Model -> Model
 carveNextCell model =
@@ -149,19 +121,19 @@ carveNextCell model =
 
     (dir, newSeed) =
       case maybeCell of
-        Nothing -> (0, Random.initialSeed 1)
+        Nothing -> (Direction.None, model.seed)
         Just cell -> rndDirection cell model.seed
 
     updatedCell =
       case maybeCell of
         Nothing -> Nothing
-        Just cell -> Just {cell | ends = (mergeEnds cell.ends (Open dir))}
+        Just cell -> Just {cell | ends = (mergeEnds cell.ends (Open ((Debug.log "Direction Carved: " (Direction.toInt dir)))))}
 
     -- Coordinates of Cell where Path leads to.
-    otherX = x + (dx dir)
-    otherY = y + (dy dir)
+    otherX = x + (Direction.dx dir)
+    otherY = y + (Direction.dy dir)
 
-    openModel = openCell otherX otherY (Open (oppositeDir dir)) model
+    openModel = openCell otherX otherY (Open (Direction.toInt(Direction.oppositeDirection dir))) model
 
 
   in
