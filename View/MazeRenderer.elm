@@ -34,28 +34,28 @@ renderCells mazeRow =
   case mazeRow of
     [] -> []
     head::tail ->
-      [td (setBordersForCell head)
+      [td [style (List.append (setBordersForCell head) [("width", "25px"), ("height", "25px")]) ]
         [
         text (Model.Maze.cellToString head)
         ]] ++ renderCells tail
 
-setBordersForCell : Cell -> List (Html.Attribute Msg)
+setBordersForCell : Cell -> List (String, String)
 setBordersForCell cell =
   case cell.ends of
-    Model.Maze.Dead -> [style [("border-style", "solid")]]
-    Model.Maze.Open 1 -> [style [("border-left-style", "solid"), ("border-top-style", "solid"), ("border-right-style", "solid")]]
-    Model.Maze.Open 2 -> [style [("border-left-style", "solid"), ("border-top-style", "solid"), ("border-bottom-style", "solid")]]
-    Model.Maze.Open 3 -> [style [("border-left-style", "solid"), ("border-top-style", "solid")]]
-    Model.Maze.Open 4 -> [style [("border-left-style", "solid"), ("border-bottom-style", "solid"), ("border-right-style", "solid")]]
-    Model.Maze.Open 5 -> [style [("border-left-style", "solid"), ("border-right-style", "solid")]]
-    Model.Maze.Open 6 -> [style [("border-left-style", "solid"), ("border-bottom-style", "solid")]]
-    Model.Maze.Open 7 -> [style [("border-left-style", "solid")]]
-    Model.Maze.Open 8 -> [style [("border-top-style", "solid"), ("border-bottom-style", "solid"), ("border-right-style", "solid")]]
-    Model.Maze.Open 9 -> [style [("border-top-style", "solid"), ("border-right-style", "solid")]]
-    Model.Maze.Open 10 -> [style [("border-top-style", "solid"), ("border-bottom-style", "solid")]]
-    Model.Maze.Open 11 -> [style [("border-top-style", "solid")]]
-    Model.Maze.Open 12 -> [style [("border-bottom-style", "solid"), ("border-right-style", "solid")]]
-    Model.Maze.Open 13 -> [style [("border-right-style", "solid")]]
-    Model.Maze.Open 14 -> [style [("border-bottom-style", "solid")]]
-    _ -> [style [("border-style", "none")]]
+    Model.Maze.Dead -> [("border-style", "solid"), ("background", "black")]
+    Model.Maze.Open 1 -> [("border-left-style", "solid"), ("border-top-style", "solid"), ("border-right-style", "solid")]
+    Model.Maze.Open 2 -> [("border-left-style", "solid"), ("border-top-style", "solid"), ("border-bottom-style", "solid")]
+    Model.Maze.Open 3 -> [("border-left-style", "solid"), ("border-top-style", "solid")]
+    Model.Maze.Open 4 -> [("border-left-style", "solid"), ("border-bottom-style", "solid"), ("border-right-style", "solid")]
+    Model.Maze.Open 5 -> [("border-left-style", "solid"), ("border-right-style", "solid")]
+    Model.Maze.Open 6 -> [("border-left-style", "solid"), ("border-bottom-style", "solid")]
+    Model.Maze.Open 7 -> [("border-left-style", "solid")]
+    Model.Maze.Open 8 -> [("border-top-style", "solid"), ("border-bottom-style", "solid"), ("border-right-style", "solid")]
+    Model.Maze.Open 9 -> [("border-top-style", "solid"), ("border-right-style", "solid")]
+    Model.Maze.Open 10 -> [("border-top-style", "solid"), ("border-bottom-style", "solid")]
+    Model.Maze.Open 11 -> [("border-top-style", "solid")]
+    Model.Maze.Open 12 -> [("border-bottom-style", "solid"), ("border-right-style", "solid")]
+    Model.Maze.Open 13 -> [("border-right-style", "solid")]
+    Model.Maze.Open 14 -> [("border-bottom-style", "solid")]
+    _ -> [("border-style", "none")]
 

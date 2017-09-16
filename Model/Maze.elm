@@ -3,6 +3,7 @@ module Model.Maze exposing (..)
 import Array exposing (Array)
 import Bitwise
 import String
+import Model.Direction as Direction exposing (Direction) 
 -- Our Maze is simply a one dimensional Array, which represents a two dimensional matrix.
 type alias Maze = Array Cell
 
@@ -47,13 +48,23 @@ toMazeArrayIdx : Int -> Int -> Int
 toMazeArrayIdx x y =
   (y * 20) + x
 
-getCell : Int -> Int -> Maze -> Maybe Cell
-getCell x y maze =
+getCell : (Int, Int) -> Maze -> Maybe Cell
+getCell (x, y) maze =
     Array.get (toMazeArrayIdx x y) maze
 
-setCell : Int -> Int -> Cell -> Maze -> Maze
-setCell x y cell maze =
+setCell : (Int, Int) -> Cell -> Maze -> Maze
+setCell (x, y) cell maze =
     Array.set (toMazeArrayIdx x y) cell maze
+
+getNeighbor : Cell -> Direction -> Maze -> Maybe Cell
+getNeighbor cell direction maze =
+  getCell (cell.x + Direction.dx direction, cell.y + Direction.dy direction) maze
+
+getAllNeighbors : Cell -> Maze -> List (Maybe Cell)
+getAllNeighbors cell maze =
+  getCell (cell.x - 1, cell.y) maze :: getCell (cell.x + 1, cell.y) maze :: getCell (cell.x, cell.y - 1) maze :: getCell (cell.x, cell.y + 1) maze :: []
+
+
 
 cellToString : Cell -> String
 cellToString cell =
