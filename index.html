@@ -8484,7 +8484,6 @@ var _schmanu$elm_maze$View_MazeRenderer$renderCells = function (mazeRow) {
 		return _elm_lang$core$Native_List.fromArray(
 			[]);
 	} else {
-		var _p2 = _p1._0;
 		return A2(
 			_elm_lang$core$Basics_ops['++'],
 			_elm_lang$core$Native_List.fromArray(
@@ -8496,18 +8495,15 @@ var _schmanu$elm_maze$View_MazeRenderer$renderCells = function (mazeRow) {
 							_elm_lang$html$Html_Attributes$style(
 							A2(
 								_elm_lang$core$List$append,
-								_schmanu$elm_maze$View_MazeRenderer$setBordersForCell(_p2),
+								_schmanu$elm_maze$View_MazeRenderer$setBordersForCell(_p1._0),
 								_elm_lang$core$Native_List.fromArray(
 									[
-										{ctor: '_Tuple2', _0: 'width', _1: '25px'},
-										{ctor: '_Tuple2', _0: 'height', _1: '25px'}
+										{ctor: '_Tuple2', _0: 'width', _1: '15px'},
+										{ctor: '_Tuple2', _0: 'height', _1: '15px'}
 									])))
 						]),
 					_elm_lang$core$Native_List.fromArray(
-						[
-							_elm_lang$html$Html$text(
-							_schmanu$elm_maze$Model_Maze$cellToString(_p2))
-						]))
+						[]))
 				]),
 			_schmanu$elm_maze$View_MazeRenderer$renderCells(_p1._1));
 	}
@@ -8559,9 +8555,47 @@ var _schmanu$elm_maze$Main$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
-			[]),
+			[
+				_elm_lang$html$Html_Attributes$style(
+				_elm_lang$core$Native_List.fromArray(
+					[
+						{ctor: '_Tuple2', _0: 'width', _1: '500px'}
+					]))
+			]),
 		_elm_lang$core$Native_List.fromArray(
 			[
+				A2(
+				_elm_lang$html$Html$h2,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$a,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$href('https://github.com/schmanu/elm-maze')
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('Elm-Maze')
+							])),
+						_elm_lang$html$Html$text(' - Maze Generator written in Elm')
+					])),
+				A2(
+				_elm_lang$html$Html$h6,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$style(
+						_elm_lang$core$Native_List.fromArray(
+							[
+								{ctor: '_Tuple2', _0: 'text-align', _1: 'right'}
+							]))
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('by schmanu')
+					])),
 				_schmanu$elm_maze$View_MazeRenderer$render(model.mazeModel.maze),
 				_elm_lang$html$Html$text(
 				A2(

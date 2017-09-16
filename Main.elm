@@ -1,5 +1,6 @@
 import Html exposing (..)
 import Html.App as App
+import Html.Attributes exposing (..)
 import MazeGenerator
 import View.MazeRenderer
 import Time exposing (Time, millisecond)
@@ -51,7 +52,8 @@ subscriptions model =
 
 view : Model -> Html View.MazeRenderer.Msg
 view model =
-  div [] 
-    [(View.MazeRenderer.render model.mazeModel.maze)
+  div [style [("width", "500px")]] [h2 [] [ a [href "https://github.com/schmanu/elm-maze"] [ text("Elm-Maze")]
+      , text (" - Maze Generator written in Elm")]
+    , h6 [style [("text-align", "right")]] [text("by schmanu")]
+    ,(View.MazeRenderer.render model.mazeModel.maze)
     , text ("Tick: " ++ (toString model.tick))]
-

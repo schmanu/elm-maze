@@ -35,10 +35,8 @@ renderCells mazeRow =
   case mazeRow of
     [] -> []
     head::tail ->
-      [td [style (List.append (setBordersForCell head) [("width", "25px"), ("height", "25px")]) ]
-        [
-        text (Model.Maze.cellToString head)
-        ]] ++ renderCells tail
+      [td [style (List.append (setBordersForCell head) [("width", "15px"), ("height", "15px")]) ][]
+      ] ++ renderCells tail
 
 setBordersForCell : Cell -> List (String, String)
 setBordersForCell cell =
