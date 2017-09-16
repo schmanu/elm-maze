@@ -1,5 +1,6 @@
 import Html exposing (..)
 import Html.App as App
+import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 import MazeGenerator
 import View.MazeRenderer
@@ -41,6 +42,21 @@ update msg model =
         )
       else
         (model, Cmd.none)
+    View.MazeRenderer.Reset ->
+      (reset model, Cmd.none)
+
+reset : Model -> Model
+reset model =
+  let
+    newMaze = (MazeGenerator.init)
+    seededMaze = {newMaze | seed = model.mazeModel.seed}
+    
+  in
+      
+  {model | mazeModel = (MazeGenerator.openStartPosition seededMaze)
+  , tick = 0
+  } 
+
 
 -- SUBSCRIPTIONS
 subscriptions : Model -> Sub View.MazeRenderer.Msg
@@ -49,11 +65,11 @@ subscriptions model =
 
 
 -- VIEW
-
 view : Model -> Html View.MazeRenderer.Msg
 view model =
   div [style [("width", "500px")]] [h2 [] [ a [href "https://github.com/schmanu/elm-maze"] [ text("Elm-Maze")]
       , text (" - Maze Generator written in Elm")]
     , h6 [style [("text-align", "right")]] [text("by schmanu")]
     ,(View.MazeRenderer.render model.mazeModel.maze)
-    , text ("Tick: " ++ (toString model.tick))]
+    , text ("Tick: " ++ (toString model.tick))
+    , button [class "newMazeBtn", onClick View.MazeRenderer.Reset ][text("New Maze")]]

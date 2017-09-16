@@ -9,12 +9,12 @@ render : Maze -> Html Msg
 render maze = 
   div [] 
   [
-  table []
+  table [class "maze"]
   (renderRows maze)
   ]
 
 
-type Msg = Tick Time
+type Msg = Tick Time | Reset
 
 renderRows : Maze -> List (Html Msg)
 renderRows maze =
@@ -35,13 +35,13 @@ renderCells mazeRow =
   case mazeRow of
     [] -> []
     head::tail ->
-      [td [style (List.append (setBordersForCell head) [("width", "15px"), ("height", "15px")]) ][]
+      [td [style (setBordersForCell head)][]
       ] ++ renderCells tail
 
 setBordersForCell : Cell -> List (String, String)
 setBordersForCell cell =
   case cell.ends of
-    Model.Maze.Dead -> [("border-style", "solid"), ("background", "black")]
+    Model.Maze.Dead -> [("border-style", "solid"), ("background", "#333333")]
     Model.Maze.Open 1 -> [("border-left-style", "solid"), ("border-top-style", "solid"), ("border-right-style", "solid")]
     Model.Maze.Open 2 -> [("border-left-style", "solid"), ("border-top-style", "solid"), ("border-bottom-style", "solid")]
     Model.Maze.Open 3 -> [("border-left-style", "solid"), ("border-top-style", "solid")]
