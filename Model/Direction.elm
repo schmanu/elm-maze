@@ -1,4 +1,4 @@
-module Direction exposing (..)
+module Model.Direction exposing (..)
 import Random exposing (Generator)
 
 type Direction = North | East | South | West | None
