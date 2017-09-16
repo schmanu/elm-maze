@@ -18,7 +18,7 @@ generateMaze =
 
 carveMaze : Model -> Model
 carveMaze model =
-  if List.length model.visited < 300 then
+  if List.length model.visited < 390 then
     carveMaze (carveNextCell model)
   else
     model
@@ -27,7 +27,7 @@ carveMaze model =
 init : Model
 init =
   {  maze = Model.Maze.emptyMaze
-  ,  seed = Random.initialSeed 31415
+  ,  seed = Random.initialSeed 3141121 --314121 seed mit kl. Bug
   ,  visited = []
   }
 
@@ -94,7 +94,7 @@ selectValidStartingCell listOfVisited model =
       Just cell -> Model.Maze.getAllNeighbors cell model.maze
   in 
     case maybeCell of
-      Nothing -> Nothing
+      Nothing -> Debug.log ("Invalid Cell From Visited Cells") Nothing
       Just cell ->
         if List.any isValidNeighbor neighbors then
           Just cell
@@ -104,7 +104,7 @@ selectValidStartingCell listOfVisited model =
 isValidNeighbor : Maybe Model.Maze.Cell -> Bool
 isValidNeighbor neighbor =
   case neighbor of 
-    Nothing -> False
+    Nothing -> False -- Wand
     Just neighbor ->
       not neighbor.mark
 
@@ -120,7 +120,7 @@ carveNextCell model =
     updatedCell =
       case maybeCell of
         Nothing -> Nothing
-        Just cell -> Just {cell | ends = (Model.Maze.mergeEnds cell.ends (Model.Maze.Open ((Debug.log "Direction Carved: " (Model.Direction.toInt dir)))))}
+        Just cell -> Just {cell | ends = (Model.Maze.mergeEnds cell.ends (Model.Maze.Open (Model.Direction.toInt dir)))}
 
     (x, y) = case maybeCell of
       Nothing -> (-1, -1)

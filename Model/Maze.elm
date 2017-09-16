@@ -50,7 +50,10 @@ toMazeArrayIdx x y =
 
 getCell : (Int, Int) -> Maze -> Maybe Cell
 getCell (x, y) maze =
-    Array.get (toMazeArrayIdx x y) maze
+    if x > 19 || y > 19 || x < 0 || y < 0 then
+      Nothing
+    else
+      Array.get (toMazeArrayIdx x y) maze
 
 setCell : (Int, Int) -> Cell -> Maze -> Maze
 setCell (x, y) cell maze =

@@ -2,28 +2,56 @@ import Html exposing (..)
 import Html.App as App
 import MazeGenerator
 import View.MazeRenderer
+import Time exposing (Time, millisecond)
+
+type alias Model =
+  {  mazeModel : MazeGenerator.Model
+  ,  tick : Int
+  }
 
 main : Program Never
 main =
-  App.beginnerProgram
-    { model = model
+  App.program
+    { init = init
     , view = view
     , update = update
+    , subscriptions = subscriptions
     }
 
-model : MazeGenerator.Model
-model =
-    MazeGenerator.generateMaze
+init : (Model, Cmd View.MazeRenderer.Msg)
+init =
+  ( { mazeModel = MazeGenerator.openStartPosition MazeGenerator.init
+    , tick = 0
+    }
+  , Cmd.none
+  )
 
 -- UPDATE
-
-update : View.MazeRenderer.Msg -> MazeGenerator.Model -> MazeGenerator.Model
+update : View.MazeRenderer.Msg -> Model -> (Model, Cmd View.MazeRenderer.Msg)
 update msg model =
-  model
+  case msg of
+    View.MazeRenderer.Tick newTime ->
+       if model.tick < 300 then
+        ( {model | 
+            mazeModel = MazeGenerator.carveNextCell model.mazeModel
+          , tick = model.tick + 1
+          }
+        , Cmd.none
+        )
+      else
+        (model, Cmd.none)
+
+-- SUBSCRIPTIONS
+subscriptions : Model -> Sub View.MazeRenderer.Msg
+subscriptions model =
+  Time.every (50 * millisecond) View.MazeRenderer.Tick
 
 
 -- VIEW
 
-view : MazeGenerator.Model -> Html View.MazeRenderer.Msg
+view : Model -> Html View.MazeRenderer.Msg
 view model =
-  View.MazeRenderer.render model.maze
+  div [] 
+    [(View.MazeRenderer.render model.mazeModel.maze)
+    , text ("Tick: " ++ (toString model.tick))]
+

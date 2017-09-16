@@ -3,6 +3,7 @@ import Model.Maze exposing (Maze, Cell, CellEnds)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Array exposing (Array)
+import Time exposing (Time)
 
 render : Maze -> Html Msg
 render maze = 
@@ -13,7 +14,7 @@ render maze =
   ]
 
 
-type Msg = Empty
+type Msg = Tick Time
 
 renderRows : Maze -> List (Html Msg)
 renderRows maze =
