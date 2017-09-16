@@ -8778,7 +8778,7 @@ var _schmanu$elm_maze$Main$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
 		if (_p0.ctor === 'Tick') {
-			return (_elm_lang$core$Native_Utils.cmp(model.tick, 350) < 0) ? {
+			return (_elm_lang$core$Native_Utils.cmp(model.tick, 400) < 0) ? {
 				ctor: '_Tuple2',
 				_0: _elm_lang$core$Native_Utils.update(
 					model,
