@@ -4,15 +4,33 @@ table.maze {
 	width: 100%;
 }
 
+body {
+	font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+}
+
 table.maze td {
 	border-color: #333333;
 	padding: 10px;
 	width: 10%;
 }
 
+h2 {
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+	font-size: 24px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+}
+
+h5 {
+	font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+}
+
 .newMazeBtn {
+	font-family: Futura, "Trebuchet MS", Arial, sans-serif;
 	float: right;
-    background-color: #008CBA; /* Green */
+    background-color: #008CBA; /* Blue */
     border: none;
     color: white;
     padding: 10px 10px;
@@ -20,4 +38,16 @@ table.maze td {
     text-decoration: none;
     display: inline-block;
     font-size: 13px;
+}
+
+.tickCounter {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-align: center left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    min-width: 60px;
 }

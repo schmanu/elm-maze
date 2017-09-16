@@ -8718,7 +8718,7 @@ var _schmanu$elm_maze$Main$view = function (model) {
 						_elm_lang$html$Html$text(' - Maze Generator written in Elm')
 					])),
 				A2(
-				_elm_lang$html$Html$h6,
+				_elm_lang$html$Html$h5,
 				_elm_lang$core$Native_List.fromArray(
 					[
 						_elm_lang$html$Html_Attributes$style(
@@ -8732,11 +8732,20 @@ var _schmanu$elm_maze$Main$view = function (model) {
 						_elm_lang$html$Html$text('by schmanu')
 					])),
 				_schmanu$elm_maze$View_MazeRenderer$render(model.mazeModel.maze),
-				_elm_lang$html$Html$text(
 				A2(
-					_elm_lang$core$Basics_ops['++'],
-					'Tick: ',
-					_elm_lang$core$Basics$toString(model.tick))),
+				_elm_lang$html$Html$span,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Attributes$class('tickCounter')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Tick: ',
+							_elm_lang$core$Basics$toString(model.tick)))
+					])),
 				A2(
 				_elm_lang$html$Html$button,
 				_elm_lang$core$Native_List.fromArray(
