@@ -31,7 +31,7 @@ update : View.MazeRenderer.Msg -> Model -> (Model, Cmd View.MazeRenderer.Msg)
 update msg model =
   case msg of
     View.MazeRenderer.Tick newTime ->
-       if model.tick < 300 then
+       if model.tick < 350 then
         ( {model | 
             mazeModel = MazeGenerator.carveNextCell model.mazeModel
           , tick = model.tick + 1

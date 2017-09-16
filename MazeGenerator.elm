@@ -27,7 +27,7 @@ carveMaze model =
 init : Model
 init =
   {  maze = Model.Maze.emptyMaze
-  ,  seed = Random.initialSeed 3141121 --314121 seed mit kl. Bug
+  ,  seed = Random.initialSeed 31411780 --314121 seed mit kl. Bug
   ,  visited = []
   }
 
